@@ -10,6 +10,7 @@ export interface Product {
     category: string;
     thumbnail: string;
     images: string[];
+    quantity?: number;
   }
   
  export interface ApiResponse {

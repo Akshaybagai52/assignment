@@ -9,7 +9,7 @@ import { CartContext } from '../../context/shop-context'
 
 const Home = () => {
   const [products, setProducts] = useState<Product[]>([])
-  const { cartItems, addToCart, removeFromCart, clearCart, getCartTotal } = useContext<any>(CartContext)
+  const { cartItems, addToCart, removeFromCart, clearCart, getCartTotal,addFavourite } = useContext<any>(CartContext)
   const toggleFavorite = (productId: number) => {
     // Implement your favorite functionality here
     console.log(`Toggled favorite for product with id ${productId}`)
@@ -41,7 +41,7 @@ const Home = () => {
             <ProductCard
               product={item}
               onAddToCart={() => addToCart(item)}
-              onToggleFavorite={() => toggleFavorite(item.id)}
+              onToggleFavorite={() => addFavourite(item)}
             />
         )}
       />

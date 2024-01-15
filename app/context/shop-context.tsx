@@ -7,14 +7,18 @@ interface CartItem {
   name: string;
   price: number;
   quantity: number;
+  favourite: boolean;
 }
 
 interface CartContextType {
   cartItems: CartItem[];
+  favouriteItems: CartItem[];
   addToCart: (item: CartItem) => void;
   removeFromCart: (item: CartItem) => void;
   clearCart: () => void;
   getCartTotal: () => number;
+  getCartTotalQuantity: () => number;
+  addFavourite: (item: CartItem) => void;
 }
 
 // Create the context
@@ -29,12 +33,13 @@ interface CartProviderProps {
 
 export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
+  const [favouriteItems, setFavouriteItems] = useState<CartItem[]>([]);
 
   const addToCart = (item: CartItem) => {
     const isItemInCart = cartItems.find((cartItem) => cartItem.id === item.id);
 
     if (isItemInCart) {
-      console.log(cartItems)
+      console.log(cartItems.length);
       setCartItems(
         cartItems.map((cartItem) =>
           cartItem.id === item.id
@@ -43,9 +48,22 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
         )
       );
     } else {
-      console.log(cartItems)
+      console.log(cartItems.length);
       setCartItems([...cartItems, { ...item, quantity: 1 }]);
     }
+  };
+   const addFavourite = (item: CartItem) => {
+    setFavouriteItems((prevFavourites) => {
+      const isItemFavourite = prevFavourites.find((favItem) => favItem.id === item.id);
+  
+      if (isItemFavourite) {
+        return prevFavourites.map((favItem) =>
+          favItem.id === item.id ? { ...favItem, favourite: false } : favItem
+        );
+      } else {
+        return [...prevFavourites, { ...item, favourite: true }];
+      }
+    });
   };
 
   const removeFromCart = (item: CartItem) => {
@@ -73,6 +91,9 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
       (total, item) => total + item.price * item.quantity,
       0
     );
+  };
+  const getCartTotalQuantity = () => {
+    return cartItems.reduce((total, product) => total + product.quantity, 0);
   };
 
   useEffect(() => {
@@ -103,14 +124,46 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
     saveCartToStorage();
   }, [cartItems]);
 
+  useEffect(() => {
+    const loadFavouritesFromStorage = async () => {
+      try {
+        const storedFavouriteItems = await AsyncStorage.getItem("favouriteItems");
+
+        if (storedFavouriteItems) {
+          setFavouriteItems(JSON.parse(storedFavouriteItems));
+        }
+      } catch (error) {
+        console.error("Error loading favourites from AsyncStorage:", error);
+      }
+    };
+
+    loadFavouritesFromStorage();
+  }, []);
+
+  useEffect(() => {
+    const saveFavouritesToStorage = async () => {
+      try {
+        await AsyncStorage.setItem("favouriteItems", JSON.stringify(favouriteItems));
+        console.log(favouriteItems)
+      } catch (error) {
+        console.error("Error saving favourites to AsyncStorage:", error);
+      }
+    };
+
+    saveFavouritesToStorage();
+  }, [favouriteItems]);
+
   return (
     <CartContext.Provider
       value={{
         cartItems,
+        favouriteItems,
         addToCart,
         removeFromCart,
         clearCart,
         getCartTotal,
+        getCartTotalQuantity,
+        addFavourite,
       }}
     >
       {children}
