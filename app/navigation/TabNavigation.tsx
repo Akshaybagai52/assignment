@@ -6,20 +6,21 @@ import { CartContext } from "../context/shop-context";
 import { FontAwesome } from "@expo/vector-icons";
 import { MaterialIcons } from "@expo/vector-icons";
 import Favourite from "../screens/favourites/Favourite";
+import ProductDetailPage from "../screens/product-detail/ProductDetail";
 const Tab = createBottomTabNavigator();
 
 export function MyTabs() {
   const { getCartTotalQuantity } = useContext(CartContext);
   return (
     <Tab.Navigator
-      initialRouteName="Feed"
+      initialRouteName="Home"
       screenOptions={{
         tabBarActiveTintColor: "#e91e63",
       }}
     >
       <Tab.Screen
-        name="Feed"
-        component={Home}
+        name="Home"
+        component={ProductDetailPage}
         options={{
           tabBarLabel: "Home",
           tabBarIcon: ({ color, size }) => (
