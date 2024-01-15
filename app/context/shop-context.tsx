@@ -52,15 +52,15 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
       setCartItems([...cartItems, { ...item, quantity: 1 }]);
     }
   };
-   const addFavourite = (item: CartItem) => {
+  const addFavourite = (item: CartItem) => {
     setFavouriteItems((prevFavourites) => {
       const isItemFavourite = prevFavourites.find((favItem) => favItem.id === item.id);
   
       if (isItemFavourite) {
-        return prevFavourites.map((favItem) =>
-          favItem.id === item.id ? { ...favItem, favourite: false } : favItem
-        );
+        // If item is already a favourite, remove it
+        return prevFavourites.filter((favItem) => favItem.id !== item.id);
       } else {
+        // If item is not a favourite, add it
         return [...prevFavourites, { ...item, favourite: true }];
       }
     });
