@@ -19,3 +19,10 @@ export interface Product {
     skip: number;
     limit: number;
   }
+
+  export interface ProductProps {
+    product: Product
+    onAddToCart: () => void
+    onToggleFavorite: () => void
+    onNavigate: () => void
+  }
