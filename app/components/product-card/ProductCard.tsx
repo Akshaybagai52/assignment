@@ -2,12 +2,17 @@ import React from 'react'
 import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native'
 import { FontAwesome } from '@expo/vector-icons' // Make sure to install @expo/vector-icons
 
-const ProductCard = ({ product, onAddToCart, onToggleFavorite }) => {
+const ProductCard = ({
+  product,
+  onAddToCart,
+  onToggleFavorite,
+  onNavigate
+}) => {
   return (
     <TouchableOpacity
       style={styles.card}
-    // style={{ flexDirection: "row"}}
-      onPress={() => console.log('working')}
+      // style={{ flexDirection: "row"}}
+      onPress={onNavigate}
     >
       <View style={styles.cardContainer}>
         <TouchableOpacity
@@ -57,10 +62,9 @@ const styles = StyleSheet.create({
   },
   card: {
     // flexDirection: 'row',
-    // flexWrap: 'wrap', 
+    // flexWrap: 'wrap',
     // width: "40%",
-    flex: 1,
-
+    flex: 1
   },
   favoriteIcon: {
     position: 'absolute',

@@ -1,7 +1,9 @@
 import React from 'react';
 import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native';
 
-const ProductDetailPage = () => {
+const ProductDetailPage = ({ route }) => {
+  const { productId } = route.params;
+  console.log(productId)
   // Dummy product data
   const product = {
     id: 1,
