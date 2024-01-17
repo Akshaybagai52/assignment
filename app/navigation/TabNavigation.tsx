@@ -24,11 +24,11 @@ function HomeStack() {
 }
 
 export function MyTabs() {
-  const { getCartTotalQuantity } = useContext(CartContext);
   return (
     <Tab.Navigator
       screenOptions={{
         tabBarActiveTintColor: '#e91e63',
+        
       }}
     >
       <Tab.Screen
@@ -36,29 +36,18 @@ export function MyTabs() {
         component={HomeStack}
         options={{
           tabBarIcon: ({ color, size }) => (
-            <FontAwesome name="home" size={24} color="black" />
+            <FontAwesome name="home" size={24} color={color} />
           ),
           headerShown: false,
         }}
       />
-      {/* <Tab.Screen
-        name="Cart"
-        component={Cart}
-        options={{
-          tabBarLabel: 'Cart',
-          tabBarIcon: ({ color, size }) => (
-            <FontAwesome name="shopping-cart" size={24} color="black" />
-          ),
-          tabBarBadge: getCartTotalQuantity(),
-        }}
-      /> */}
       <Tab.Screen
         name="Favourite"
         component={Favourite}
         options={{
           tabBarLabel: 'Favourites',
           tabBarIcon: ({ color, size }) => (
-            <MaterialIcons name="favorite" size={24} color="black" />
+            <MaterialIcons name="favorite" size={24} color={color} />
           ),
         }}
       />

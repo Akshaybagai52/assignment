@@ -39,7 +39,6 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
     const isItemInCart = cartItems.find((cartItem) => cartItem.id === item.id);
 
     if (isItemInCart) {
-      console.log(cartItems.length);
       setCartItems(
         cartItems.map((cartItem) =>
           cartItem.id === item.id
@@ -48,7 +47,6 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
         )
       );
     } else {
-      console.log(cartItems.length);
       setCartItems([...cartItems, { ...item, quantity: 1 }]);
     }
   };
@@ -144,7 +142,6 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
     const saveFavouritesToStorage = async () => {
       try {
         await AsyncStorage.setItem("favouriteItems", JSON.stringify(favouriteItems));
-        console.log(favouriteItems)
       } catch (error) {
         console.error("Error saving favourites to AsyncStorage:", error);
       }

@@ -14,19 +14,17 @@ import { ApiResponse, Product } from "../../types/interfaces";
 import { CartContext } from "../../context/shop-context";
 import { useNavigation } from "@react-navigation/native";
 import { Feather } from "@expo/vector-icons";
+import styles from "./styles";
 
 const Home = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const {
     cartItems,
     addToCart,
-    removeFromCart,
-    clearCart,
-    getCartTotal,
     getCartTotalQuantity,
     addFavourite,
   } = useContext<any>(CartContext);
-  const navigation = useNavigation();
+  const navigation = useNavigation<any>();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -35,9 +33,8 @@ const Home = () => {
           param1: "value1",
         });
         setProducts(result.products);
-        // console.log('API Result:', result)
       } catch (error) {
-        // Handle error
+        console.log(error)
       }
     };
 
@@ -45,11 +42,9 @@ const Home = () => {
   }, []);
 
   const navigateToProductDescription = (productId: Product) => {
-    // Navigate to the ProductDescription screen
     navigation.navigate("ProductDetailPage", { productId });
   };
   const navigateToCart = () => {
-    // Navigate to the ProductDescription screen
     navigation.navigate("Cart");
   };
   const ListHeaderComponent = () => {
@@ -87,32 +82,6 @@ const Home = () => {
   );
 };
 
-const styles = StyleSheet.create({
-  headerContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "flex-end", // Align items to the end
-    padding: 10,
-    // backgroundColor: '#fff',
-    // borderBottomWidth: 1,
-    // borderBottomColor: '#ccc',
-    marginRight: 20,
-  },
-  badge: {
-    position: "absolute",
-    top: 0,
-    right: 0,
-    backgroundColor: "red",
-    borderRadius: 10,
-    paddingHorizontal: 6,
-    paddingVertical: 2,
-    zIndex: 1,
-  },
-  badgeText: {
-    color: "#fff",
-    fontSize: 12,
-    fontWeight: "bold",
-  },
-});
+
 
 export default Home;

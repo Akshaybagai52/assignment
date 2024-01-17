@@ -21,7 +21,6 @@ const Cart = () => {
     const fadeAnim = new Animated.Value(1);
   
     const handleRemove = (item) => {
-      console.log("first")
       setRemovedItem(item);
       removeFromCart(item);
     };
@@ -77,20 +76,20 @@ const Cart = () => {
             </View>
           </Animated.View>
         ))}
-        {/* {cartItems.length > 0 ? (
+        {cartItems.length > 0 ? (
           <View style={styles.total}>
             <View style={styles.totalContainer}>
               <Text style={styles.totalText}>Total</Text>
               <Text style={styles.totalText}> ${getCartTotal()}</Text>
             </View>
 
-            <TouchableOpacity style={styles.clearButton} onPress={clearCart}>
+            <TouchableOpacity style={styles.clearButton}>
               <Text style={styles.clearButtonText}>Proceed to Checkout</Text>
             </TouchableOpacity>
           </View>
         ) : (
           <Text style={styles.emptyCartText}>Your cart is empty</Text>
-        )} */}
+        )}
       </View>
     </ScrollView>
   );
