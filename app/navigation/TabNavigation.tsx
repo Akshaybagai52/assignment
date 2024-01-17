@@ -18,6 +18,7 @@ function HomeStack() {
     <Stack.Navigator>
       <Stack.Screen name="Home" component={Home} />
       <Stack.Screen name="ProductDetailPage" component={ProductDetailPage} />
+      <Stack.Screen name="Cart" component={Cart} />
     </Stack.Navigator>
   );
 }
@@ -31,7 +32,7 @@ export function MyTabs() {
       }}
     >
       <Tab.Screen
-        name="Home"
+        name="Homes"
         component={HomeStack}
         options={{
           tabBarIcon: ({ color, size }) => (
@@ -40,8 +41,8 @@ export function MyTabs() {
           headerShown: false,
         }}
       />
-      <Tab.Screen
-        name="Notifications"
+      {/* <Tab.Screen
+        name="Cart"
         component={Cart}
         options={{
           tabBarLabel: 'Cart',
@@ -50,7 +51,7 @@ export function MyTabs() {
           ),
           tabBarBadge: getCartTotalQuantity(),
         }}
-      />
+      /> */}
       <Tab.Screen
         name="Favourite"
         component={Favourite}

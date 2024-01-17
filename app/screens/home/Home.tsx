@@ -52,7 +52,7 @@ const Home = () => {
             product={item}
             onAddToCart={() => addToCart(item)}
             onToggleFavorite={() => addFavourite(item)}
-            onNavigate={() => navigateToProductDescription(item.id)}
+            onNavigate={() => navigateToProductDescription(item)}
           />
         )}
       />
