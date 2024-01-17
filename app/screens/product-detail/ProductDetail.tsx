@@ -16,14 +16,14 @@ const ProductDetailPage = ({ route }) => {
 
   const { productId } = route.params;
   const navigation = useNavigation()
-  const navigateToCart = (productId) => {
+  const navigateToCart = (productId:number) => {
     // Navigate to the ProductDescription screen
     addToCart(productId)
     navigation.navigate('Cart')
   }
 
 
-  const renderItem = ({ item }) => {
+  const renderItem = ({ item }:{item:string}) => {
     return (
       <View style={{justifyContent:'center', alignItems: 'center', flex:1}}>
         <Image style={{ width: "100%", height: 300}} source={{ uri: item }} />
